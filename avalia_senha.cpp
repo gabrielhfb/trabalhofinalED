@@ -14,6 +14,7 @@ bool carregaSenhaTXT(FILE *prt_arq, int *id_usuario, char *senha_usuario) {
   }
 
   string_id[i] = '/0';
+  entrada[strlen(entrada) - 1] = '\0';
 
   *id_usuario = atoi(string_id);
 
@@ -23,7 +24,6 @@ bool carregaSenhaTXT(FILE *prt_arq, int *id_usuario, char *senha_usuario) {
 }
 
 // Consulta
-
 pNodoA *consultaArvore(pNodoA *a, int chave) {
   while (a != NULL) {
     if (a->id_usuario == chave) {
@@ -73,26 +73,31 @@ int Altura(pNodoA *a) {
   else {
     Alt_Esq = Altura(a->esq);
     Alt_Dir = Altura(a->dir);
-    if (Alt_Esq > Alt_Dir)
+    if (Alt_Esq > Alt_Dir) {
+      comparacoes++;
       return (1 + Alt_Esq);
-    else
+    } else {
+      comparacoes++;
       return (1 + Alt_Dir);
+    }
   }
 }
 
 int Calcula_FB(pNodoA *a) { return (Altura(a->esq) - Altura(a->dir)); }
 
-int is_avl(pNodoA *a) {
+/* int is_avl(pNodoA *a) {
   int alt_esq, alt_dir;
 
   if (a != NULL) {
+    comparacoes++;
     alt_esq = Altura(a->esq);
     alt_dir = Altura(a->dir);
     return ((alt_esq - alt_dir < 2) && (alt_dir - alt_esq < 2) &&
             (is_avl(a->esq)) && (is_avl(a->dir)));
   } else
-    return 1;
-}
+    comparacoes++;
+  return 1;
+} */
 
 pNodoA *rotacao_direita(pNodoA *pt) {
   pNodoA *ptu;
@@ -125,14 +130,20 @@ pNodoA *rotacao_dupla_direita(pNodoA *pt) {
   ptv->esq = ptu;
   pt->esq = ptv->dir;
   ptv->dir = pt;
-  if (ptv->FB == 1)
+  if (ptv->FB == 1) {
+    comparacoes++;
     pt->FB = -1;
-  else
+  } else {
+    comparacoes++;
     pt->FB = 0;
-  if (ptv->FB == -1)
+  }
+  if (ptv->FB == -1) {
+    comparacoes++;
     ptu->FB = 1;
-  else
+  } else {
+    comparacoes++;
     ptu->FB = 0;
+  }
   pt = ptv;
   return pt;
 }
@@ -146,14 +157,20 @@ pNodoA *rotacao_dupla_esquerda(pNodoA *pt) {
   ptv->dir = ptu;
   pt->dir = ptv->esq;
   ptv->esq = pt;
-  if (ptv->FB == -1)
+  if (ptv->FB == -1) {
+    comparacoes++;
     pt->FB = 1;
-  else
+  } else {
+    comparacoes++;
     pt->FB = 0;
-  if (ptv->FB == 1)
+  }
+  if (ptv->FB == 1) {
+    comparacoes++;
     ptu->FB = -1;
-  else
+  } else {
+    comparacoes++;
     ptu->FB = 0;
+  }
   pt = ptv;
   return pt;
 }
@@ -163,8 +180,10 @@ pNodoA *Caso1(pNodoA *a, int *ok) {
 
   ptu = a->esq;
   if (ptu->FB == 1) {
+    comparacoes++;
     a = rotacao_direita(a);
   } else {
+    comparacoes++;
     a = rotacao_dupla_direita(a);
   }
 
@@ -188,11 +207,10 @@ pNodoA *Caso2(pNodoA *a, int *ok) {
 }
 
 pNodoA *InsereAVL(pNodoA *a, int id, char *senha_usuario, int *ok) {
-
   if (a == NULL) {
+    comparacoes++;
     a = (pNodoA *)malloc(sizeof(pNodoA));
-    
-    
+
     a->id_usuario = id;
     strcpy(a->senha, senha_usuario);
 
@@ -205,13 +223,16 @@ pNodoA *InsereAVL(pNodoA *a, int id, char *senha_usuario, int *ok) {
     if (*ok) {
       switch (a->FB) {
         case -1:
+          comparacoes++;
           a->FB = 0;
           *ok = 0;
           break;
         case 0:
+          comparacoes += 2;
           a->FB = 1;
           break;
         case 1:
+          comparacoes += 3;
           a = Caso1(a, ok);
           break;
       }
@@ -221,13 +242,16 @@ pNodoA *InsereAVL(pNodoA *a, int id, char *senha_usuario, int *ok) {
     if (*ok) {
       switch (a->FB) {
         case 1:
+          comparacoes++;
           a->FB = 0;
           *ok = 0;
           break;
         case 0:
+          comparacoes += 2;
           a->FB = -1;
           break;
         case -1:
+          comparacoes += 3;
           a = Caso2(a, ok);
           break;
       }
