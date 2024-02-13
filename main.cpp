@@ -5,32 +5,33 @@
 
 #include "avalia_senha.h"
 
-int main(void){
+int main(void)
+{
+    CombinacoesArquivos combinacoes[TOTAL_DE_COMBINACOES];
+    montaCombinacoesDeTestes(combinacoes);
 
-    char arq_entrada[32] = "entrada.txt";
-    char arq_testes[32] = "testes.txt";
-
-    printf("Digite o nome do arquivo com os dados de entrada: ");
-    scanf("%s", arq_entrada);
-
-    printf("Digite o nome do arquivo com os dados de teste: ");
-    scanf("%s", arq_testes);
+    int espera_ate_arquivos_serem_montados;
+    scanf("%d", &espera_ate_arquivos_serem_montados);
 
     pNodoA *ABP = NULL;
     pNodoA *AVL = NULL;
 
-    // -------------------------------------------------------------------------
-    // ABP
-    leDadosDoArquivoEManipulaArvore(arq_entrada, &ABP, ARVORE_ABP, INSERE);      //Insere
-    leDadosDoArquivoEManipulaArvore(arq_testes, &ABP, ARVORE_ABP, CONSULTA);    //Consulta
 
+    for(int i=0; i<TOTAL_DE_COMBINACOES; i++){
+        // ABP
+        printf("Inserindo os dados do arquivo \"%s\" na ABP\n", combinacoes[i].arquivo_de_dados);
+        leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_dados, &ABP, ARVORE_ABP, INSERE);      //Insere
 
+        printf("Buscando os dados do arquivo \"%s\" na ABP\n", combinacoes[i].arquivo_de_teste);
+        leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_teste, &ABP, ARVORE_ABP, CONSULTA);    //Consulta
 
+        // AVL
+        printf("Inserindo os dados do arquivo \"%s\" na AVL\n", combinacoes[i].arquivo_de_dados);
+        leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_dados, &AVL, ARVORE_AVL, INSERE);      // Insere
 
-    // -------------------------------------------------------------------------
-    // AVL
-    leDadosDoArquivoEManipulaArvore(arq_entrada, &AVL, ARVORE_AVL, INSERE);      // Insere
-    leDadosDoArquivoEManipulaArvore(arq_testes, &AVL, ARVORE_AVL, CONSULTA);    // Consulta
+        printf("Buscando os dados do arquivo \"%s\" na AVL\n", combinacoes[i].arquivo_de_teste);
+        leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_teste, &AVL, ARVORE_AVL, CONSULTA);    // Consulta
+    }
 
 
     return 0;
