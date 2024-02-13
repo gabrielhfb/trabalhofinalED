@@ -123,8 +123,6 @@ int carregaSenhaTXT(FILE *prt_arq, char *senha_usuario) {
 
   id_usuario = atoi(entrada);
 
-  strcpy(senha_usuario, &entrada[i + 1]);
-
   return id_usuario;
 }
 
