@@ -19,7 +19,7 @@ typedef struct pNodoA{
 } pNodoA;
 
 
-void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[], pNodoA *ptr_arvore, int arvore, int operacao);
+void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[], pNodoA **ptr_arvore, int arvore, int operacao);
 void salvaResultados(char nome_arq_entrada[], double tempo_cpu, pNodoA *ptr_arvore, int arvore, int operacao,
                      int comparacoes, int n_encontrados, int senha_incorreta, int senha_correta);
 
