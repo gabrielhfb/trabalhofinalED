@@ -3,10 +3,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-// Variável global para contar o número de comparações feitas na execução
-double comparacoes = 0;
+typedef enum TipoDeOperacao {INSERE = 0, CONSULTA} TipoDeOperacao;
+typedef enum TipoDeArvore {ARVORE_ABP = 0, ARVORE_AVL} TipoDeArvore;
 
-// Estrutura de dados para ambas as árvores (na ABP o fator de balanceamento não é usado)
+#define ARQUIVO_RESULTADOS  "resultados.txt"
+
+// Estrutura de dados para ambas as �rvores (na ABP o fator de balanceamento n�o � usado)
 typedef struct pNodoA{
         int id_usuario;
         char senha[32];
@@ -16,24 +18,29 @@ typedef struct pNodoA{
         int FB = 0;
 } pNodoA;
 
-// Função para ler arquivo texto no formato CSV, com trazendo o id e senha do usuário.
-// Recebe um ponteiro para arquivo, e ponteiros para os locais onde os dados serão armazenados
+
+void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[], pNodoA *ptr_arvore, int arvore, int operacao);
+void salvaResultados(char nome_arq_entrada[], double tempo_cpu, pNodoA *ptr_arvore, int arvore, int operacao,
+                     int comparacoes, int n_encontrados, int senha_incorreta, int senha_correta);
+
+// Fun��o para ler arquivo texto no formato CSV, com trazendo o id e senha do usu�rio.
+// Recebe um ponteiro para arquivo, e ponteiros para os locais onde os dados ser�o armazenados
 bool carregaSenhaTXT(FILE *prt_arq, int *id_usuario, char *senha_usuario);
 
-// Função de consulta usada para ambas as árvores.
+// Fun��o de consulta usada para ambas as �rvores.
 // Recebe um ponteiro para nodo e a chave (id) a ser consultada
-pNodoA *consultaArvore(pNodoA *a, int chave);
+pNodoA *consultaArvore(pNodoA *a, int chave, int *comparacoes);
 
-// Função para inserção de um novo nodo na ABP.
-pNodoA *InsereABP(pNodoA *a, int id, char *senha_usuario);
+// Fun��o para inser��o de um novo nodo na ABP.
+pNodoA *InsereABP(pNodoA *a, int id, char *senha_usuario, int *comparacoes);
 
-// Funções para inserção de um novo nodo na AVL.
-int Altura(pNodoA *a);
-int Calcula_FB(pNodoA *a);
+// Fun��es para inser��o de um novo nodo na AVL.
+int Altura(pNodoA *a, int *comparacoes);
+int Calcula_FB(pNodoA *a, int *comparacoes);
 pNodoA *rotacao_direita(pNodoA *pt);
 pNodoA *rotacao_esquerda(pNodoA *pt);
-pNodoA *rotacao_dupla_direita(pNodoA *pt);
-pNodoA *rotacao_dupla_esquerda(pNodoA *pt);
-pNodoA *Caso1(pNodoA *a, int *ok);
-pNodoA *Caso2(pNodoA *a, int *ok);
-pNodoA *InsereAVL(pNodoA *a, int id, char *senha_usuario, int *ok);
+pNodoA *rotacao_dupla_direita(pNodoA *pt, int *comparacoes);
+pNodoA *rotacao_dupla_esquerda(pNodoA *pt, int *comparacoes);
+pNodoA *Caso1(pNodoA *a, int *ok, int *comparacoes);
+pNodoA *Caso2(pNodoA *a, int *ok, int *comparacoes);
+pNodoA *InsereAVL(pNodoA *a, int id, char *senha_usuario, int *ok, int *comparacoes);
