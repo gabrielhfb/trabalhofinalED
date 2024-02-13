@@ -33,14 +33,14 @@ void montaCombinacoesDeTestes(CombinacoesArquivos combinacoes[]){
                                                                         "1000u_base100mil_100e.csv",
                                                                         "1000u_base100mil_500e.csv"};
 
-    int c = 0;      // contador para as combinacoes
+    int c = 0;      // contador para as combinações
 
     // Cria combinacoes para os arquivos de 500 dados
     for(int i=0; i<2; i++){
         for(int j=0; j<N_ARQUIVOS_TESTES_500; j++){
             strcpy(combinacoes[c].arquivo_de_dados, nomes_arquivos_de_dados[i]);
             strcpy(combinacoes[c].arquivo_de_teste, arquivos_de_teste_500[j]);
-            printf("%d - Arquivo de dados: %s, Arquivo de testes: %s\n", c+1, combinacoes[c].arquivo_de_dados, combinacoes[c].arquivo_de_teste);
+            //printf("%d - Arquivo de dados: %s, Arquivo de testes: %s\n", c+1, combinacoes[c].arquivo_de_dados, combinacoes[c].arquivo_de_teste);
             c++;
         }
     }
@@ -54,9 +54,17 @@ void montaCombinacoesDeTestes(CombinacoesArquivos combinacoes[]){
             else
                 strcpy(combinacoes[c].arquivo_de_teste, arquivos_de_teste_100mil[j]);
 
-            printf("%d - Arquivo de dados: %s, Arquivo de testes: %s\n", c+1, combinacoes[c].arquivo_de_dados, combinacoes[c].arquivo_de_teste);
+            //printf("%d - Arquivo de dados: %s, Arquivo de testes: %s\n", c+1, combinacoes[c].arquivo_de_dados, combinacoes[c].arquivo_de_teste);
             c++;
         }
+    }
+}
+
+void desalocaMemoria (pNodoA *a){
+    if(a != NULL){
+        desalocaMemoria(a->esq);
+        desalocaMemoria(a->dir);
+        free(a);
     }
 }
 
