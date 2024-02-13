@@ -7,33 +7,33 @@
 
 
 void montaCombinacoesDeTestes(CombinacoesArquivos combinacoes[]){
-    char nomes_arquivos_de_dados[N_ARQUIVOS_DADOS][LENGHT_STRINGS] = {"500_dados_ordenados.csv",
-                                                                        "500_dados_desordenados.csv",
-                                                                        "10000_dados_ordenados.csv",
-                                                                        "10000_dados_desordenados.csv",
-                                                                        "1000000_dados_ordenados.csv",
-                                                                        "1000000_dados_desordenados.csv"};
+    char nomes_arquivos_de_dados[N_ARQUIVOS_DADOS][LENGHT_STRINGS] = {"500_ordenado.csv",
+                                                                        "500_desordenado.csv",
+                                                                        "10mil_ordenado.csv",
+                                                                        "10mil_desordenado.csv",
+                                                                        "100mil_ordenado.csv",
+                                                                        "100mil_desordenado.csv"};
 
-    char arquivos_de_teste_500[N_ARQUIVOS_TESTES_500][LENGHT_STRINGS] = {"10_usuarios_1_errado_500.csv",
-                                                                        "10_usuarios_5_errados_500.csv",
-                                                                        "100_usuarios_10_errados_500.csv",
-                                                                        "100_usuarios_50_errados_500.csv"};
+    char arquivos_de_teste_500[N_ARQUIVOS_TESTES_500][LENGHT_STRINGS] = {"10u_base500_1e.csv",
+                                                                        "10u_base500_5e.csv",
+                                                                        "100u_base500_10e.csv",
+                                                                        "100u_base500_50e.csv"};
 
-    char arquivos_de_teste_10000[N_ARQUIVOS_TESTES][LENGHT_STRINGS] = {"10_usuarios_1_errado_10000.csv",
-                                                                        "10_usuarios_5_errados_10000.csv",
-                                                                        "100_usuarios_10_errados_10000.csv",
-                                                                        "100_usuarios_50_errados_10000.csv",
-                                                                        "1000_usuarios_100_errados_10000.csv",
-                                                                        "1000_usuarios_500_errados_10000.csv"};
+    char arquivos_de_teste_10mil[N_ARQUIVOS_TESTES][LENGHT_STRINGS] = {"10u_base10mil_1e.csv",
+                                                                        "10u_base10mil_5e.csv",
+                                                                        "100u_base10mil_10e.csv",
+                                                                        "100u_base10mil_50e.csv",
+                                                                        "1000u_base10mil_100e.csv",
+                                                                        "1000u_base10mil_500e.csv"};
 
-    char arquivos_de_teste_100000[N_ARQUIVOS_TESTES][LENGHT_STRINGS] = {"10_usuarios_1_errado_100000.csv",
-                                                                        "10_usuarios_5_errados_100000.csv",
-                                                                        "100_usuarios_10_errados_100000.csv",
-                                                                        "100_usuarios_50_errados_100000.csv",
-                                                                        "1000_usuarios_100_errados_100000.csv",
-                                                                        "1000_usuarios_500_errados_100000.csv"};
+    char arquivos_de_teste_100mil[N_ARQUIVOS_TESTES][LENGHT_STRINGS] = {"10u_base100mil_1e.csv",
+                                                                        "10u_base100mil_5e.csv",
+                                                                        "100u_base100mil_10e.csv",
+                                                                        "100u_base100mil_50e.csv",
+                                                                        "1000u_base100mil_100e.csv",
+                                                                        "1000u_base100mil_500e.csv"};
 
-    int c = 0;      // contador para as combinações
+    int c = 0;      // contador para as combinacoes
 
     // Cria combinacoes para os arquivos de 500 dados
     for(int i=0; i<2; i++){
@@ -50,9 +50,9 @@ void montaCombinacoesDeTestes(CombinacoesArquivos combinacoes[]){
         for(int j=0; j<N_ARQUIVOS_TESTES; j++){
             strcpy(combinacoes[c].arquivo_de_dados, nomes_arquivos_de_dados[i]);
             if((i==2 || i==3))
-                strcpy(combinacoes[c].arquivo_de_teste, arquivos_de_teste_10000[j]);
+                strcpy(combinacoes[c].arquivo_de_teste, arquivos_de_teste_10mil[j]);
             else
-                strcpy(combinacoes[c].arquivo_de_teste, arquivos_de_teste_100000[j]);
+                strcpy(combinacoes[c].arquivo_de_teste, arquivos_de_teste_100mil[j]);
 
             printf("%d - Arquivo de dados: %s, Arquivo de testes: %s\n", c+1, combinacoes[c].arquivo_de_dados, combinacoes[c].arquivo_de_teste);
             c++;
