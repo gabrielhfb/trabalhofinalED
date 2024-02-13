@@ -194,7 +194,7 @@ int carregaSenhaTXT(FILE *prt_arq, char *senha_usuario)
 
     for (i = 0; entrada[i] != ','; i++);
     entrada[i] = '\0';
-    senha_usuario = &entrada[i+1];
+    strcpy(senha_usuario, &entrada[i+1]);
 
     id_usuario = atoi(entrada);
 
