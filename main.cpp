@@ -19,11 +19,6 @@ int main(void){
     pNodoA *ABP = NULL;
     pNodoA *AVL = NULL;
 
-    // -------------------------------------------------------------------------
-    // ABP
-    leDadosDoArquivoEManipulaArvore(arq_entrada, &ABP, ARVORE_ABP, INSERE);      //Insere
-    leDadosDoArquivoEManipulaArvore(arq_testes, &ABP, ARVORE_ABP, CONSULTA);    //Consulta
-
 
 
 
@@ -31,6 +26,13 @@ int main(void){
     // AVL
     leDadosDoArquivoEManipulaArvore(arq_entrada, &AVL, ARVORE_AVL, INSERE);      // Insere
     leDadosDoArquivoEManipulaArvore(arq_testes, &AVL, ARVORE_AVL, CONSULTA);    // Consulta
+
+
+    // -------------------------------------------------------------------------
+    // ABP
+    leDadosDoArquivoEManipulaArvore(arq_entrada, &ABP, ARVORE_ABP, INSERE);      //Insere
+    leDadosDoArquivoEManipulaArvore(arq_testes, &ABP, ARVORE_ABP, CONSULTA);    //Consulta
+
 
 
     return 0;

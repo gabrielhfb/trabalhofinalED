@@ -11,7 +11,7 @@ typedef enum TipoDeArvore {ARVORE_ABP = 0, ARVORE_AVL} TipoDeArvore;
 // Estrutura de dados para ambas as �rvores (na ABP o fator de balanceamento n�o � usado)
 typedef struct pNodoA{
         int id_usuario;
-        char senha[32];
+        char senha[22];
 
         struct pNodoA *esq;
         struct pNodoA *dir;
