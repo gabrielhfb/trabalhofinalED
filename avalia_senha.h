@@ -25,7 +25,7 @@ void salvaResultados(char nome_arq_entrada[], double tempo_cpu, pNodoA *ptr_arvo
 
 // Fun��o para ler arquivo texto no formato CSV, com trazendo o id e senha do usu�rio.
 // Recebe um ponteiro para arquivo, e ponteiros para os locais onde os dados ser�o armazenados
-bool carregaSenhaTXT(FILE *prt_arq, int *id_usuario, char *senha_usuario);
+int carregaSenhaTXT(FILE *prt_arq, char *senha_usuario);
 
 // Fun��o de consulta usada para ambas as �rvores.
 // Recebe um ponteiro para nodo e a chave (id) a ser consultada

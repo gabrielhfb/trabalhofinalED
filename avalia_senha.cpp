@@ -34,9 +34,9 @@ void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[],
     inicio = clock();  // Inicia a contagem do tempo
 
     while (!feof(ptr_arquivo)) {
-      if (carregaSenhaTXT(
-              ptr_arquivo, &id_lido,
-              senha_lida))  // Se conseguiu ler o usuario e a senha e
+      if ((id_lido = carregaSenhaTXT(
+              ptr_arquivo,
+              senha_lida)) != -1)  // Se conseguiu ler o usuario e a senha e
       {
         if (operacao == INSERE) {  // Se a operacao for insere,
           if (arvore == ARVORE_ABP)
@@ -108,26 +108,26 @@ void salvaResultados(char nome_arq_entrada[], double tempo_cpu,
   }
 }
 
-bool carregaSenhaTXT(FILE *prt_arq, int *id_usuario, char *senha_usuario) {
+int carregaSenhaTXT(FILE *prt_arq, char *senha_usuario) {
   char entrada[128];
-  char string_id[16];
+  int id_usuario;
   char *leitura;
   int i;
 
   leitura = fgets(entrada, 128, prt_arq);
-  if (leitura == NULL) return false;
+  if (leitura == NULL) return -1;
 
-  for (i = 0; entrada[i] != ','; i++) string_id[i] = entrada[i];
+  for (i = 0; entrada[i] != ','; i++);
+  entrada[i] = '\0';
+  senha_usuario = &entrada[i+1];
 
-  string_id[i] = '\0';
-  entrada[strlen(entrada) - 1] = '\0';
-
-  *id_usuario = atoi(string_id);
+  id_usuario = atoi(entrada);
 
   strcpy(senha_usuario, &entrada[i + 1]);
 
-  return true;
+  return id_usuario;
 }
+
 
 // Consulta
 pNodoA *consultaArvore(pNodoA *a, int chave, int *comparacoes) {
