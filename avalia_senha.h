@@ -6,7 +6,7 @@
 typedef enum TipoDeOperacao {INSERE = 0, CONSULTA} TipoDeOperacao;
 typedef enum TipoDeArvore {ARVORE_ABP = 0, ARVORE_AVL} TipoDeArvore;
 
-#define ARQUIVO_RESULTADOS      "resultados.txt"
+#define ARQUIVO_RESULTADOS      "resultados.csv"
 #define N_ARQUIVOS_DADOS        6
 #define N_ARQUIVOS_TESTES       6
 #define N_ARQUIVOS_TESTES_500   4
@@ -57,3 +57,4 @@ pNodoA *rotacao_dupla_esquerda(pNodoA *pt, int *comparacoes);
 pNodoA *Caso1(pNodoA *a, int *ok, int *comparacoes);
 pNodoA *Caso2(pNodoA *a, int *ok, int *comparacoes);
 pNodoA *InsereAVL(pNodoA *a, int id, char *senha_usuario, int *ok, int *comparacoes);
+void testa_arvores(char arquivo_carrega[], char arquivo_teste[]);
