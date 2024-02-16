@@ -79,6 +79,7 @@ void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[],
   int n_encontrados = 0;
   int senha_incorreta = 0;
   int senha_correta = 0;
+  int insercoes = 0;
 
   pNodoA *pt_aux = NULL;
 
@@ -99,10 +100,11 @@ void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[],
         {
           if (arvore == ARVORE_ABP)
             *ptr_arvore = InsereABP(*ptr_arvore, id_lido, senha_lida,
-                                    &comparacoes);  // Insere o dado na ABP ou
+                                    &comparacoes); // Insere o dado na ABP ou
           else if (arvore == ARVORE_AVL)
             *ptr_arvore = InsereAVL(*ptr_arvore, id_lido, senha_lida, &ok,
                                     &comparacoes);  // Insere o dado na AVL
+          insercoes++;
         } else if (operacao == CONSULTA)  // Se a operacao for consulta,
         {
           pt_aux = consultaArvore(*ptr_arvore, id_lido, &comparacoes);
@@ -125,14 +127,14 @@ void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[],
 
     // Salva os resultados no arquivo
     salvaResultados(nome_arq_entrada, tempo_cpu, *ptr_arvore, arvore, operacao,
-                    comparacoes, n_encontrados, senha_incorreta, senha_correta);
+                    comparacoes, n_encontrados, senha_incorreta, senha_correta, insercoes);
   }
 }
 
 void salvaResultados(char nome_arq_entrada[], double tempo_cpu,
                      pNodoA *ptr_arvore, int arvore, int operacao,
                      int comparacoes, int n_encontrados, int senha_incorreta,
-                     int senha_correta) {
+                     int senha_correta, int insercoes) {
   FILE *ptr_resultados;
   char nomeArvore[5];
 
@@ -148,14 +150,14 @@ void salvaResultados(char nome_arq_entrada[], double tempo_cpu,
     if (operacao == CONSULTA)
       fprintf(ptr_resultados,
               // Consulta/Insere,Árvore, Arquivo_lido, Nro_comparações, tempo,
-              // n_encontrados, senhas_incorretas, senhas_corretas
-              "C,%s,%s,%d,%lf,%d,%d,%d,0\n", nomeArvore, nome_arq_entrada,
+              // n_encontrados, senhas_incorretas, senhas_corretas, altura, total_usuarios
+              "C,%s,%s,%d,%lf,%d,%d,%d,0,%d\n", nomeArvore, nome_arq_entrada,
               comparacoes, tempo_cpu, n_encontrados, senha_incorreta,
-              senha_correta);
+              senha_correta, (n_encontrados + senha_incorreta + senha_correta));
     if (operacao == INSERE)
-      fprintf(ptr_resultados, "I,%s,%s,%d,%lf,0,0,0,%d\n", nomeArvore,
+      fprintf(ptr_resultados, "I,%s,%s,%d,%lf,0,0,0,%d,%d\n", nomeArvore,
               nome_arq_entrada, comparacoes, tempo_cpu,
-              Altura(ptr_arvore, &comparacoes));
+              Altura(ptr_arvore, &comparacoes), insercoes);
 
     fclose(ptr_resultados);
   }

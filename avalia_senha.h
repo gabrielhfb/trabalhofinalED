@@ -34,7 +34,7 @@ void montaCombinacoesDeTestes(CombinacoesArquivos combinacoes[]);
 void desalocaMemoria (pNodoA *a);
 void leDadosDoArquivoEManipulaArvore(char nome_arq_entrada[], pNodoA **ptr_arvore, int arvore, int operacao);
 void salvaResultados(char nome_arq_entrada[], double tempo_cpu, pNodoA *ptr_arvore, int arvore, int operacao,
-                     int comparacoes, int n_encontrados, int senha_incorreta, int senha_correta);
+                     int comparacoes, int n_encontrados, int senha_incorreta, int senha_correta, int insercoes);
 
 // Fun��o para ler arquivo texto no formato CSV, com trazendo o id e senha do usu�rio.
 // Recebe um ponteiro para arquivo, e ponteiros para os locais onde os dados ser�o armazenados
