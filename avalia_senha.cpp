@@ -1,3 +1,7 @@
+//Bruna Corrêa de Freitas  
+//Flavia Martins Lisboa
+//Gabriel Henrique Fiszczuk Brandeburski
+
 #include "avalia_senha.h"
 
 #include <stdio.h>
