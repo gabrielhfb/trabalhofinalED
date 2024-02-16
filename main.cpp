@@ -1,37 +1,54 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
+#include <string.h>
 #include <time.h>
 
 #include "avalia_senha.h"
 
-int main(void){
+int main(void) {
+  CombinacoesArquivos combinacoes[TOTAL_DE_COMBINACOES];
+  montaCombinacoesDeTestes(combinacoes);
 
-    char arq_entrada[32] = "entrada.txt";
-    char arq_testes[32] = "testes.txt";
+  char arquivo_a_ser_lido[32];
 
-    printf("Digite o nome do arquivo com os dados de entrada: ");
-    scanf("%s", arq_entrada);
-
-    printf("Digite o nome do arquivo com os dados de teste: ");
-    scanf("%s", arq_testes);
-
+  for (int i = 0; i < TOTAL_DE_COMBINACOES; i++) {
     pNodoA *ABP = NULL;
     pNodoA *AVL = NULL;
 
-    // -------------------------------------------------------------------------
+    printf("Dados INSERIDOS: \"%s\" / Dados COLSULTADOS: \"%s\"\n",
+           combinacoes[i].arquivo_de_dados, combinacoes[i].arquivo_de_teste);
+
     // ABP
-    leDadosDoArquivoEManipulaArvore(arq_entrada, &ABP, ARVORE_ABP, INSERE);      //Insere
-    leDadosDoArquivoEManipulaArvore(arq_testes, &ABP, ARVORE_ABP, CONSULTA);    //Consulta
+    if (strcmp("data/100mil_ordenado.csv", combinacoes[i].arquivo_de_dados) !=
+        0) {  // Não insere os 100mil dados ordenados na ABP
+      printf("Inserindo na ABP\n");
+      leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_dados, &ABP,
+                                      ARVORE_ABP, INSERE);  // Insere
+      printf("Buscando na ABP\n");
+      leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_teste, &ABP,
+                                      ARVORE_ABP, CONSULTA);  // Consulta
+    }
 
-
-
-
-    // -------------------------------------------------------------------------
+    printf("----------------\n");
     // AVL
-    leDadosDoArquivoEManipulaArvore(arq_entrada, &AVL, ARVORE_AVL, INSERE);      // Insere
-    leDadosDoArquivoEManipulaArvore(arq_testes, &AVL, ARVORE_AVL, CONSULTA);    // Consulta
+    printf("Inserindo na AVL\n");
+    leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_dados, &AVL,
+                                    ARVORE_AVL, INSERE);  // Insere
+    printf("Buscando na AVL\n");
+    leDadosDoArquivoEManipulaArvore(combinacoes[i].arquivo_de_teste, &AVL,
+                                    ARVORE_AVL, CONSULTA);  // Consulta
 
+    printf(
+        "======================================================================"
+        "======================\n\n");
 
-    return 0;
+    // limpa ABP e AVL
+    desalocaMemoria(ABP);
+    desalocaMemoria(AVL);
+  }
+
+  testa_arvores("data/10milusuariosdesordenados.csv",
+                "data/teste1000usuarios500naoencontrados.csv");
+
+  return 0;
 }

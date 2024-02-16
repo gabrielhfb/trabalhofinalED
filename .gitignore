@@ -1,1 +1,4 @@
 .vscode/settings.json
+main.exe
+.gitignore
+data-small.csv
